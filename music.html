@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+   
     <style>
         :root {
             --bg-color: ivory;
@@ -107,18 +107,6 @@
             z-index: 10;
             animation: fadeIn 1s ease-in-out;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideInLeft {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
     </style>
 </head>
 <body>
@@ -143,7 +131,13 @@
         const audio = document.getElementById("audio");
         const songList = document.getElementById("song-list");
         
-        const songs = Array.from({ length: 15 }, (_, i) => ({ name: `Song ${i + 1}`, src: `song${i + 1}.mp3` }));
+        const songs = [
+            { name: "kitni bechain hoke", src: "kitni bechain hoke.mp3" },
+            { name: "Song Two", src: "song2.mp3" },
+            { name: "Song Three", src: "song3.mp3" },
+            { name: "Song Four", src: "song4.mp3" },
+            { name: "Song Five", src: "song5.mp3" }
+        ];
         
         function loadSongs() {
             songs.forEach(song => {
@@ -171,15 +165,7 @@
             document.body.classList.toggle("dark-mode");
         }
         
-        // Load Lottie Animation
-        const animationContainer = document.getElementById("lottie-animation");
-        lottie.loadAnimation({
-            container: animationContainer,
-            renderer: "svg",
-            loop: true,
-            autoplay: true,
-            path: "https://lottie.host/16839c17-6a75-46a7-8711-0af0ce4ccbd9/motion.json"
-        });
+      
         
         loadSongs();
     </script>

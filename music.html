@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+    <style>
+        :root {
+            --bg-color: ivory;
+            --text-color: black;
+            --button-bg: beige;
+            --button-text: black;
+        }
+        .dark-mode {
+            --bg-color: black;
+            --text-color: goldenrod;
+            --button-bg: darkgoldenrod;
+            --button-text: white;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            text-align: center;
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            height: 70vh;
+            background: var(--button-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .player-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--button-bg);
+        }
+        .song-list-container {
+            width: 50%;
+            overflow-y: auto;
+            max-height: 100%;
+            padding: 20px;
+            background: var(--button-bg);
+        }
+        .song-list button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background: var(--button-bg);
+            color: var(--button-text);
+            transition: background 0.3s;
+        }
+        .song-list button:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+        .toggle-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="lottie-animation" class="background-animation"></div>
+    <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <div class="container">
+        <div class="player-container">
+            <h2>Music Player</h2>
+            <audio id="audio" controls>
+                <source src="sample.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+            <button onclick="playMusic()">Play</button>
+            <button onclick="pauseMusic()">Pause</button>
+        </div>
+        <div class="song-list-container">
+            <h2>Playlist</h2>
+            <div class="song-list" id="song-list"></div>
+        </div>
+    </div>
+    <script>
+        const audio = document.getElementById("audio");
+        const songList = document.getElementById("song-list");
+        
+        const songs = Array.from({ length: 15 }, (_, i) => ({ name: `Song ${i + 1}`, src: `song${i + 1}.mp3` }));
+        
+        function loadSongs() {
+            songs.forEach(song => {
+                let btn = document.createElement("button");
+                btn.innerText = song.name;
+                btn.onclick = () => playSelectedSong(song.src);
+                songList.appendChild(btn);
+            });
+        }
+        
+        function playSelectedSong(src) {
+            audio.src = src;
+            audio.play();
+        }
+        
+        function playMusic() {
+            audio.play();
+        }
+        
+        function pauseMusic() {
+            audio.pause();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+        
+        // Load Lottie Animation
+        const animationContainer = document.getElementById("lottie-animation");
+        lottie.loadAnimation({
+            container: animationContainer,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            path: "https://lottie.host/16839c17-6a75-46a7-8711-0af0ce4ccbd9/motion.json"
+        });
+        
+        loadSongs();
+    </script>
+</body>
+</html>

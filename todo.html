@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        :root {
+            --bg-color: ivory;
+            --text-color: black;
+            --button-bg: beige;
+            --button-text: black;
+            --button-border: #999;
+        }
+
+        .dark-mode {
+            --bg-color: rgb(24, 24, 23);
+            --text-color: goldenrod;
+            --button-bg: black; 
+            --button-text: white;
+            --button-border: goldenrod;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .todo-container {
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--button-bg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid var(--button-border);
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid var(--button-border);
+            cursor: pointer;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border-radius: 8px;
+        }
+
+        button:active {
+            opacity: 0.7;
+        }
+
+        .toggle-button, .home-button {
+            margin-bottom: 15px;
+            padding: 8px 16px;
+            border: 2px solid var(--button-border);
+            cursor: pointer;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: var(--bg-color);
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid var(--button-border);
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="goHome()">Home</button>
+    <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <div class="todo-container">
+        <h2>To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function goHome() {
+            window.location.href = "index.html";
+        }
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let li = document.createElement("li");
+            li.innerHTML = `${taskText} 
+                <button onclick="completeTask(this)">✔</button>
+                <button onclick="deleteTask(this)">❌</button>`;
+            
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+        }
+
+        function completeTask(button) {
+            let li = button.parentElement;
+            li.classList.toggle("completed");
+        }
+
+        function deleteTask(button) {
+            let li = button.parentElement;
+            li.remove();
+        }
+    </script>
+</body>
+</html>

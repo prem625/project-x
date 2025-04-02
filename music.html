@@ -85,7 +85,37 @@
         .song-card:hover {
             transform: scale(1.02);
             background: var(--hover-bg);
-        }
+            background-image: linear-gradient(90deg, 
+    #FFD700 0%,  /* Gold */
+    #FFA500 25%, /* Orange */
+    #000000 50%, /* Orange-Red */
+    #DC143C 75%, /* Crimson */
+    #d40101 100% /* Dark Red */
+  );
+  background-size: 300% 300%;
+  background-position: left;
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent; 
+  animation: gradientShift 1s linear infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% { background-position: left; }
+  100% { background-position: right; }
+}
+
+
+@keyframes animate{
+  to {
+      background-position-x: -200px;
+
+  }
+}
+
+
+/* ---------------------------------------------------------------------------------------------- */
+
         .song-title {
             font-size: 18px;
             font-weight: bold;
